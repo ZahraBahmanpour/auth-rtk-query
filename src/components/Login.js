@@ -1,20 +1,32 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { useLoginMutation } from "../features/auth/authApiSlice";
+import { setCredentials } from "../features/auth/authSlice";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [login, { isLoading }] = useLoginMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const res = await login({ username, password }).unwrap();
+      dispatch(setCredentials({ ...res }));
       navigate("/");
     } catch (error) {
       navigate("/login");
     }
   };
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <form className="form" onSubmit={(e) => handleSubmit(e)}>
       <h5>login</h5>
