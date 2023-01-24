@@ -164,7 +164,7 @@ a:focus {
 
 .public,
 .welcome,
-.users {
+.products {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -177,6 +177,6 @@ a:focus {
   padding: 1rem;
 }
 
-.users ul {
+.products ul {
   list-style-type: none;
 }
