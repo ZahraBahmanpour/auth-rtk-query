@@ -33,16 +33,6 @@ section {
   width: min(100%, 500px);
 }
 
-a,
-a:visited {
-  color: whitesmoke;
-}
-
-a:hover,
-a:focus {
-  color: rgba(245, 245, 245, 0.9);
-}
-
 /* || LOGIN */
 
 :root {
