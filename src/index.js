@@ -7,6 +7,8 @@ import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
+import PrivateRoute from "./features/auth/PrivateRoute";
+import Products from "./components/Products";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,6 +18,9 @@ root.render(
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route to="/" element={<PrivateRoute />}>
+            <Route path="/products" element={<Products />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </Provider>
