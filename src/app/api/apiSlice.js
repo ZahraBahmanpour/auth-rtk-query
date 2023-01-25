@@ -6,9 +6,9 @@ const baseQuery = fetchBaseQuery({
   baseUrl: BASE_URL,
   credentials: "same-origin",
   prepareHeaders: (headers, { getState, endpoint }) => {
-    const token = getState().auth.token;
+    const token = localStorage.getItem("token");
     if (endpoint === REFRESH_TOKEN_URL) {
-      const token = getState().auth.refreshToken;
+      const token = localStorage.getItem("refreshToken");
       headers.set("refreshToken", token);
     } else if (token) {
       headers.set("token", token);
@@ -29,9 +29,8 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
     );
     console.log(refreshResult);
     if (refreshResult?.data) {
-      const user = api.getState().auth.user;
       // store the new token
-      api.dispatch(setCredentials({ ...refreshResult.data, user }));
+      api.dispatch(setCredentials({ ...refreshResult.data }));
       // retry the original query with new access token
       result = await baseQuery(args, api, extraOptions);
     } else {
